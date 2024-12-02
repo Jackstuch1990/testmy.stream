@@ -3,89 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TestMy.Stream - Accessibility Test</title>
+    <title>Filtertest.net</title>
+    <link rel="icon" href="Designer.png" type="image/png">
     <style>
-        /* General body and background styling for a tech feel */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212; /* Dark background for tech feel */
-            color: #fff; /* White text for contrast */
-            padding: 20px;
-            text-align: center;
-            margin: 0;
-            background: linear-gradient(135deg, #2c3e50, #34495e); /* Subtle gradient */
-            background-size: 100% 100%;
-        }
-
-        /* Centering button */
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            margin: 5px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            background: linear-gradient(45deg, #4caf50, #2196f3); /* Gradient button */
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-            position: relative;
-            animation: moveButton 3s infinite alternate;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Glowing effect */
-        }
-
-        /* Animation for the button */
-        @keyframes moveButton {
-            0% {
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(15px);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        /* Styling for results */
-        #results {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .test-result {
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #1e2a33; /* Darker background for each result */
-            border-radius: 10px;
-            width: 80%;
-            border: 2px solid #34495e;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for results */
+            background: linear-gradient(135deg, #2c3e50, #34495e);
             color: #fff;
+            padding: 20px;
+            margin: 0;
         }
 
-        .service-logo {
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .header img {
+            width: 50px;
+            height: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+        }
+
+        .github-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .github-link a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .github-link img {
             width: 30px;
             height: 30px;
             margin-right: 10px;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #4caf50, #2196f3);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #results {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .test-result {
+            background-color: #1e2a33;
+            border-radius: 10px;
+            border: 2px solid #34495e;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-logo {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
         .loading-bar {
             width: 100%;
-            background-color: #f3f3f3;
+            background: linear-gradient(135deg, #f3f3f3, #ecf0f1);
             border-radius: 5px;
-            margin-top: 10px;
-            margin-left: 10px;
-            background: linear-gradient(135deg, #f3f3f3, #ecf0f1); /* Gradient for loading bar */
+            height: 5px;
+            overflow: hidden;
+            margin: 10px 0;
         }
 
         .loading {
@@ -103,146 +128,147 @@
             color: green;
         }
 
-        .diagnostics-container {
-            width: 100%;
-            padding: 10px 0;
-            background-color: #333; /* Darker background for diagnostics */
-            border-top: 1px solid #ddd;
-            display: none;
+        .diagnostics {
             margin-top: 10px;
-        }
-
-        .show-diagnostics {
-            cursor: pointer;
+            padding: 10px;
+            background-color: #2c3e50;
+            border-radius: 5px;
+            color: #ddd;
             font-size: 14px;
-            color: #007bff;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .diagnostics-text {
-            font-size: 12px;
-            color: #bbb;
-        }
-
-        /* Text styling for headers */
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .diagnostics.hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>TestMy.Stream</h1>
-    
-    <!-- Button container for centering -->
+    <div class="github-link">
+        <a href="https://github.com/Jackstuch1990/testmy.stream" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub Logo">
+            GitHub Repository
+        </a>
+    </div>
+
+    <div class="header">
+        <img src="Designer.png" alt="Filtertest Logo">
+        <h1>Filtertest.net</h1>
+    </div>
+
     <div class="button-container">
+        <select id="categorySelector">
+            <option value="all">All</option>
+            <option value="school">School</option>
+            <option value="streaming">Streaming</option>
+            <option value="adult">Adult</option>
+            <option value="games">Games</option>
+        </select>
         <button onclick="runTests()">Run Tests</button>
     </div>
 
     <div id="results"></div>
 
     <script>
-        const services = [
-            { name: 'Netflix', url: 'https://www.netflix.com/favicon.ico' },
-            { name: 'Amazon Prime Video', url: 'https://www.primevideo.com/favicon.ico' },
-            { name: 'Hulu', url: 'https://www.hulu.com/favicon.ico' },
-            { name: 'Disney+', url: 'https://www.disneyplus.com/favicon.ico' },
-            { name: 'YouTube', url: 'https://www.youtube.com/favicon.ico' },
-            { name: 'Pornhub', url: 'https://www.pornhub.com/favicon.ico' },
-            { name: 'HBO Max', url: 'https://www.hbomax.com/favicon.ico' },
-            { name: 'Apple TV+', url: 'https://www.apple.com/favicon.ico' },
-            { name: 'Peacock', url: 'https://www.peacocktv.com/static/peacock-toolkit/32.3.1/peacock/favicons/favicon.ico' },
-            { name: 'Paramount+', url: 'https://www.paramountplus.com/favicon.ico' },
-            { name: 'Discovery+', url: 'https://www.discoveryplus.com/favicon.png' },
-            { name: 'BBC iPlayer', url: 'https://www.bbc.co.uk/favicon.ico' }
-        ];
+        const allServices = {
+            all: [
+                { name: 'Netflix', url: 'https://www.netflix.com/favicon.ico' },
+                { name: 'YouTube', url: 'https://www.youtube.com/favicon.ico' },
+                { name: 'Minecraft', url: 'https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/favicon.ico' },
+                { name: 'Pornhub', url: 'https://www.pornhub.com/favicon.ico' }
+            ],
+            school: [
+                { name: 'YouTube', url: 'https://www.youtube.com/favicon.ico' },
+                { name: 'Khan Academy', url: 'https://www.khanacademy.org/favicon.ico' },
+                { name: 'Google Classroom', url: 'https://classroom.google.com/favicon.ico' }
+            ],
+            streaming: [
+                { name: 'Netflix', url: 'https://www.netflix.com/favicon.ico' },
+                { name: 'Disney+', url: 'https://www.disneyplus.com/favicon.ico' },
+                { name: 'Amazon Prime', url: 'https://www.primevideo.com/favicon.ico' }
+            ],
+            adult: [
+                { name: 'Pornhub', url: 'https://www.pornhub.com/favicon.ico' },
+                { name: 'XNXX', url: 'https://www.xnxx.com/favicon.ico' }
+            ],
+            games: [
+                { name: 'Minecraft', url: 'https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/favicon.ico' },
+                { name: 'Fortnite', url: 'https://www.epicgames.com/favicon.ico' },
+                { name: 'Roblox', url: 'https://www.roblox.com/favicon.ico' },
+                { name: 'Gamepix', url: 'https://www.gamepix.com/icons/favicon-32x32.png'},
+                { name: 'Poki', url: 'https://a.poki-cdn.com/icons/apple-touch-icon.png'},
+                { name: 'slitheriogame', url: 'https://slitheriogame.io/favicon.ico'},
+                { name: 'slither', url: 'https://slither.io/s/favicon.png'},
+                { name: 'Poki', url: 'https://a.poki-cdn.com/icons/apple-touch-icon.png'}
+            ]
+        };
 
         async function runTests() {
+            const selectedCategory = document.getElementById('categorySelector').value;
             const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '';  // Clear previous results
+            resultsContainer.innerHTML = '';
+
+            const services = allServices[selectedCategory];
 
             for (const service of services) {
                 const resultDiv = document.createElement('div');
                 resultDiv.classList.add('test-result');
 
-                // Create result text container
                 const resultText = document.createElement('div');
                 resultText.innerHTML = `<strong>${service.name}:</strong> <span class="status">Checking...</span>`;
                 
-                // Create a loading bar
                 const loadingBar = document.createElement('div');
                 loadingBar.classList.add('loading-bar');
                 const loading = document.createElement('div');
                 loading.classList.add('loading');
                 loadingBar.appendChild(loading);
 
-                // Create logo image element with URL as the source
                 const logoImg = document.createElement('img');
                 logoImg.src = service.url;
                 logoImg.alt = `${service.name} logo`;
                 logoImg.classList.add('service-logo');
 
-                // Create diagnostics button
-                const diagnosticsButton = document.createElement('span');
-                diagnosticsButton.classList.add('show-diagnostics');
-                diagnosticsButton.textContent = 'Show Diagnostics';
+                const diagnosticsButton = document.createElement('button');
+                diagnosticsButton.textContent = 'Diagnostics';
+                diagnosticsButton.style.marginTop = '10px';
+                diagnosticsButton.onclick = () => {
+                    diagnosticsDiv.classList.toggle('hidden');
+                };
 
-                // Create a diagnostics container
-                const diagnosticsContainer = document.createElement('div');
-                diagnosticsContainer.classList.add('diagnostics-container');
+                const diagnosticsDiv = document.createElement('div');
+                diagnosticsDiv.classList.add('diagnostics', 'hidden');
+                diagnosticsDiv.textContent = `URL: ${service.url}`;
 
-                // Create diagnostics text
-                const diagnosticsText = document.createElement('div');
-                diagnosticsText.classList.add('diagnostics-text');
-                diagnosticsText.innerText = `Testing URL: ${service.url}`;
-
-                // Append the diagnostics text to the diagnostics container
-                diagnosticsContainer.appendChild(diagnosticsText);
-
-                // Append logo, result text, diagnostics button, loading bar, and diagnostics container to resultDiv
                 resultDiv.appendChild(logoImg);
                 resultDiv.appendChild(resultText);
-                resultDiv.appendChild(diagnosticsButton);
                 resultDiv.appendChild(loadingBar);
-                resultDiv.appendChild(diagnosticsContainer);
+                resultDiv.appendChild(diagnosticsButton);
+                resultDiv.appendChild(diagnosticsDiv);
 
                 resultsContainer.appendChild(resultDiv);
 
-                // Toggle diagnostics visibility when button is clicked
-                diagnosticsButton.onclick = function() {
-                    const isVisible = diagnosticsContainer.style.display === 'block';
-                    diagnosticsContainer.style.display = isVisible ? 'none' : 'block';
-                    diagnosticsButton.textContent = isVisible ? 'Show Diagnostics' : 'Hide Diagnostics';
-                };
-
                 try {
-                    // Attempt to load the favicon as an image
                     const img = new Image();
                     img.src = service.url;
 
                     img.onload = () => {
-                        // If favicon is loaded successfully
                         resultText.querySelector('.status').textContent = 'Accessible';
                         resultText.querySelector('.status').classList.add('accessible');
-                        loading.style.width = '100%'; // Fill the bar on success
+                        loading.style.width = '100%';
                     };
 
                     img.onerror = () => {
-                        // If favicon fails to load (error occurs)
                         resultText.querySelector('.status').textContent = 'Blocked or Failed';
                         resultText.querySelector('.status').classList.add('failed');
-                        loading.style.width = '100%'; // Fill the bar on failure
+                        loading.style.width = '100%';
+                        logoImg.remove();
+                        resultDiv.insertAdjacentHTML('afterbegin', '<div style="font-size:50px;">❌</div>');
                     };
-                } catch (error) {
-                    // Catch any unexpected errors
+                } catch {
                     resultText.querySelector('.status').textContent = 'Blocked or Failed';
                     resultText.querySelector('.status').classList.add('failed');
-                    loading.style.width = '100%'; // Fill the bar on failure
+                    loading.style.width = '100%';
+                    logoImg.remove();
+                    resultDiv.insertAdjacentHTML('afterbegin', '<div style="font-size:50px;">❌</div>');
                 }
             }
         }
